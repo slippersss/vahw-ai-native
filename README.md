@@ -12,6 +12,7 @@ skills/
 ├── testing/          # 测试经验与能力
 └── workflow/         # 跨任务工作流
 
+misc/                 # 非主流程、供用户手动运行的实用工具
 workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 ```
 
@@ -20,5 +21,9 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 - [`ai-native-meta`](skills/ai-native-meta/SKILL.md)：沟通、沉淀、Skill 编写和提交约定。
 - [`remote-work`](skills/workflow/remote-work/SKILL.md)：多远程机器、执行前同步和长任务管理的最小工作流。
 - [`install-vllm-ascend`](skills/workflow/install-vllm-ascend/SKILL.md)：远程环境中选择兼容版本并从源码安装 vLLM 与 vLLM Ascend。
+
+手动工具：
+
+- [`download-vllm-ascend-image.sh`](misc/download-vllm-ascend-image.sh)：在容器内通过 tag 或 digest 下载 vLLM Ascend 镜像并导出 Docker tar。
 
 具体经验从真实工作中逐步沉淀；一次性项目事实不直接升级为 meta 规则。
