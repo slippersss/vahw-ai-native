@@ -46,7 +46,10 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 - Keep each commit focused on one coherent change.
 - Use an English Conventional Commit subject: `<type>(<optional-scope>): <summary>`.
 - Prefer `feat`, `fix`, `test`, `docs`, `refactor`, or `chore`; keep the subject concise and imperative.
-- Add a body only when the reason or a non-obvious tradeoff needs explanation.
+- Default to a subject-only message. These repositories are usually simple,
+  so the subject should normally describe the change completely.
+- Add a body only when the subject cannot explain a necessary reason or a
+  non-obvious tradeoff. Never use the body to restate the subject or diff.
 - Use this stable AI identity; do not include the model, provider, or agent name:
 
   `ai-native <ai-native@no-reply.email>`
@@ -60,6 +63,10 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 
   `Co-authored-by: slippersss <slippersss@126.com>`
 
-- Separate trailers from the message body with one blank line.
+- Separate the trailer block from the message body with exactly one blank line.
+- Keep all trailer lines contiguous. Never insert blank lines between
+  `Signed-off-by`, `Co-authored-by`, or any other trailers.
+- Order the standard trailers with `Signed-off-by` first and
+  `Co-authored-by` immediately after it.
 - Apply the AI identity per commit; do not overwrite the user's persistent Git configuration.
 - `Signed-off-by` is intentional here: within this workspace it records the AI-native authorship convention and carries its normal DCO attestation implications.
