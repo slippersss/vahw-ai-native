@@ -1,84 +1,43 @@
 ---
 name: debugging
-description: Diagnose deterministic software failures with an explicit stack trace and, when available, a known-good version or configuration. Use for reproducible regressions where source-level control flow and runtime state can be reconstructed; do not use as a generic testing or incident-response checklist.
+description: Diagnose reproducible software failures and controlled behavioral differences using runtime evidence and source-level control or data flow. Use for deterministic regressions with an exception or stack trace, and for successful vLLM inference deployments whose outputs or metrics diverge; do not use as a generic testing or incident-response checklist.
 ---
 
 # Evidence-driven debugging
 
-> 中文导读：适用于“稳定复现、有明确报错栈、可读源码、最好还有正常版本可对比”的问题。核心是先证明发生了什么，再解释为什么发生，并找到新旧版本最早的路径分叉点。
+> 中文导读：这是可复现问题的统一调试入口。先区分“必现异常”和“vLLM 对照结果不一致”，再加载对应流程；所有场景都以证据分级、最早分叉点和最小验证实验为核心。
 
-## Establish the failure boundary
+## Choose the debugging mode
 
-- Record the exact failing expression, runtime object type, missing or invalid value, and the first relevant application frame.
-- Identify which execution context produced the stack: main model or auxiliary model, producer or consumer, parent or worker process, eager or compiled path. Do not transfer facts between contexts without evidence.
-- Separate the primary exception from shutdown, watchdog, communication, and resource-cleanup errors that follow it.
-- With multiple logs or distributed roles, build a small role and timeline map before reading deeply: process or rank, role, effective configuration, first abnormal timestamp, first application exception, and later propagated failures. Treat repeated rank-local copies of the same stack as one failure signature.
-- Prefer configuration reported after argument parsing over the launch command when they differ. Record role-specific differences separately instead of treating all workers as identically configured.
+- For a deterministic failure with an explicit exception or stack trace, read [references/deterministic-failure.md](references/deterministic-failure.md).
+- For successful vLLM requests that differ across backends, devices, versions, quantization modes, or deployments, read [references/vllm-inference-consistency.md](references/vllm-inference-consistency.md). Use its input-equivalence gate before comparing downstream metrics.
+- If neither description fits, use the shared principles below without forcing the problem into either specialized workflow. Add a new reference only after a distinct workflow has been validated in real work.
 
-## Reconstruct necessary runtime facts
+## Maintain an evidence boundary
 
-Work backward from the failing line. For every enclosing branch, write the condition that must have been true for execution to reach it. Trace the failing value to all of its producers and eliminate producers whose output shape, type, or state conflicts with the observed failure.
+Classify every material statement as:
 
-Maintain three evidence levels:
+- **Observed:** stated directly by logs, configuration, source inspection, runtime state, or captured artifacts.
+- **Deduced:** necessarily follows from observed facts and inspected code or contracts.
+- **Hypothesized:** plausibly explains the mechanism but still needs a targeted probe.
 
-- **Observed:** stated directly by the stack, logs, configuration, or inspected runtime object.
-- **Deduced:** necessarily follows from observed facts and the inspected source.
-- **Hypothesized:** explains the mechanism but still needs runtime instrumentation, metadata, or an operator contract.
+Do not transfer a fact from one process, role, model, request, or deployment to another without evidence. Prefer effective runtime configuration over launch intent.
 
-Never present a hypothesis as a directly observed fact. When one log line proves only one component's state, do not generalize it to adjacent components.
+## Find the earliest divergence
 
-## Trace both control flow and data flow
+Reproduce with the smallest representative case and, when available, a known-good baseline. Compare equivalent inputs and execution roles, then trace control flow and data flow until the first observable mismatch. Treat later errors and metric differences as consequences until shown otherwise.
 
-Write an unbroken chain from path selection to failure, including intermediate type or representation changes. Verify each arrow against a source line or runtime fact.
-
-Treat related states as independent until proven coupled. For example, an activation carrying a scale does not imply that the next layer's weight is quantized or has a weight scale. Check both sides of an operation and the compatibility assumption between them.
-
-When an operator's return semantics are not visible in Python, infer only what downstream execution proves, then label the remaining semantic explanation as a hypothesis until confirmed by documentation, a minimal probe, or instrumentation.
-
-## Compare against a known-good baseline
-
-Use the same input, execution role, and effective configuration when possible. Find the earliest control-flow or data-representation divergence, rather than reviewing the entire diff first.
-
-1. Extract the bad version's path admission condition.
-2. Extract the known-good version's corresponding condition.
-3. Substitute the actual runtime configuration into both.
-4. Identify the first condition or transformation that produces different behavior.
-5. Use blame or commit history only after the divergent code is known, to establish when and why it changed.
-
-Distinguish these conclusions:
-
-- The new path was entered unintentionally.
-- The new path was intentionally enabled but downstream handling is incomplete.
-- The baseline avoids the bug only because its stricter admission condition makes the faulty code unreachable.
-
-## Close the smallest evidence gap
-
-Before claiming root cause, list what remains unproven. Prefer targeted runtime logging or inspection over downloading or executing an entire system. Useful probes often include:
-
-- selected strategy or preprocessing enum;
-- concrete method and layer types;
-- dtype, shape, and tuple-versus-tensor state;
-- presence of scale or metadata attributes;
-- the exact condition that admitted the path.
-
-Stop once the failure chain, first regression divergence, and remaining uncertainty are explicit. Do not propose a concrete conversion, dequantization, or fix until the relevant operator and data-format contract is known.
+Close the smallest remaining evidence gap with a focused log, runtime inspection, source comparison, or controlled intervention. Do not run a broader experiment when a narrower probe can distinguish the current hypotheses.
 
 ## Report the result
 
 Lead with a compact causal chain:
 
 ```text
-runtime fact
--> admitted path
--> representation change
--> invalid compatibility assumption
--> failing expression
+effective runtime fact
+-> selected path or representation
+-> first observed divergence
+-> downstream failure or metric impact
 ```
 
-Then provide the source lines for the admission condition, value producer, branch decision, and failing expression. State separately:
-
-- what is proven;
-- what is strongly inferred;
-- what one minimal probe would confirm.
-
-For regressions, explain whether the known-good version actually contains a fix or merely cannot reach the defective path.
+State separately what is proven, what remains likely, and the smallest next probe that would confirm or reject it.
