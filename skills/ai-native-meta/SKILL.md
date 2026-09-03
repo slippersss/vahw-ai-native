@@ -22,6 +22,13 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 - Keep reusable meta rules, skills, and workflows outside `workspace/` and under version control in this repository.
 - Keep operational artifacts separate from business source trees. Store helper scripts, logs, PID files, status files, and temporary files in `workspace/` locally or in a dedicated operator-owned directory adjacent to remote source trees; place them inside a source repository only when they are intentional project deliverables.
 
+## Remote network preflight
+
+- Whenever a task connects to a remote machine or container, check network access from the actual execution environment before cloning repositories, downloading packages, or starting other network-dependent work. Host connectivity does not prove container connectivity; check each environment that will access the network.
+- Remote environments commonly start without a working proxy. If required endpoints are unreachable and no usable proxy is configured, stop the network-dependent step and ask the user for the current task's proxy immediately.
+- Treat proxy values as task-local environment data. Do not persist them in repositories, reusable skills, Git configuration, or other lasting configuration unless the user explicitly requests it.
+- Do not silently replace the intended remote download or installation workflow with local repository or artifact migration merely because the remote network is unavailable. Use an alternative transfer path only when the user requests or approves it.
+
 ## Text files
 
 - Use LF line endings for every text file, including generated files and configuration written by tools. Do not introduce CRLF based on the host platform default.
@@ -64,8 +71,8 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
   `Co-authored-by: slippersss <slippersss@126.com>`
 
 - Separate the trailer block from the message body with exactly one blank line.
-- Keep all trailer lines contiguous. Never insert blank lines between
-  `Signed-off-by`, `Co-authored-by`, or any other trailers.
+- Keep all trailer lines contiguous. There must be exactly zero blank lines
+  between `Signed-off-by` and `Co-authored-by`, or between any other trailers.
 - Order the standard trailers with `Signed-off-by` first and
   `Co-authored-by` immediately after it.
 - Apply the AI identity per commit; do not overwrite the user's persistent Git configuration.
