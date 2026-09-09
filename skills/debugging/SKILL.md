@@ -1,19 +1,20 @@
 ---
 name: debugging
-description: Diagnose software failures and inference regressions using runtime evidence and source-level data flow. Use for deterministic exceptions, cross-deployment output differences, and load-dependent vLLM Ascend NaN or KV-cache corruption, including graph replay and regression-test interface audits.
+description: Diagnose software failures and inference regressions using runtime evidence and source-level data flow. Use for deterministic exceptions, cross-deployment output differences, Ascend kernel memory-access faults, and load-dependent NaN or KV-cache corruption, including graph replay and regression-test interface audits.
 ---
 
 # Evidence-driven debugging
 
-> 中文导读：统一调试入口，覆盖必现异常、推理对照差异，以及并发下的 NaN、状态缓存污染和图模式问题。按问题加载专项流程，以证据分级、最早分叉点和最小验证实验为核心。
+> 中文导读：统一调试入口，覆盖必现异常、推理对照差异、算子内存访问故障，以及并发下的 NaN、状态缓存污染和图模式问题。按问题加载专项流程，以证据分级、最早分叉点和最小验证实验为核心。
 
 ## Choose the debugging mode
 
 - For a deterministic failure with an explicit exception or stack trace, read [references/deterministic-failure.md](references/deterministic-failure.md).
+- For Ascend device exceptions or apparent hangs pointing to invalid kernel memory access, especially when ranks or graph/eager modes differ, read [references/ascend-kernel-memory-faults.md](references/ascend-kernel-memory-faults.md). Use it to isolate the faulting launch and test allocation-boundary hypotheses.
 - For successful vLLM requests that differ across backends, devices, versions, quantization modes, or deployments, read [references/vllm-inference-consistency.md](references/vllm-inference-consistency.md). Use its input-equivalence gate before comparing downstream metrics.
 - For load-dependent NaN/Inf, repeated-token collapse, recurrent-state corruption, or incompatible shared KV layouts on Ascend, read [references/vllm-ascend-numerical-debugging.md](references/vllm-ascend-numerical-debugging.md). This also covers bounded graph probes and operator replay.
 - When converting a fix into a regression test or porting it across vLLM revisions, read [references/vllm-regression-interface-audit.md](references/vllm-regression-interface-audit.md).
-- If neither description fits, use the shared principles below without forcing the problem into either specialized workflow. Add a new reference only after a distinct workflow has been validated in real work.
+- If no description fits, use the shared principles below without forcing the problem into a specialized workflow. Add a new reference only after a distinct workflow has been validated in real work.
 
 ## Maintain an evidence boundary
 
