@@ -13,7 +13,7 @@ description: Diagnose software failures and inference regressions using runtime 
 - For Ascend device exceptions or apparent hangs pointing to invalid kernel memory access, especially when ranks or graph/eager modes differ, read [references/ascend-kernel-memory-faults.md](references/ascend-kernel-memory-faults.md). Use it to isolate the faulting launch and test allocation-boundary hypotheses.
 - For successful vLLM requests that differ across backends, devices, versions, quantization modes, or deployments, read [references/vllm-inference-consistency.md](references/vllm-inference-consistency.md). Use its input-equivalence gate before comparing downstream metrics.
 - For load-dependent NaN/Inf, repeated-token collapse, recurrent-state corruption, or incompatible shared KV layouts on Ascend, read [references/vllm-ascend-numerical-debugging.md](references/vllm-ascend-numerical-debugging.md). This also covers bounded graph probes and operator replay.
-- When converting a fix into a regression test or porting it across vLLM revisions, read [references/vllm-regression-interface-audit.md](references/vllm-regression-interface-audit.md).
+- When converting a fix into a regression test, porting it across vLLM revisions, or checking whether another hardware backend shares it, read [references/vllm-regression-interface-audit.md](references/vllm-regression-interface-audit.md).
 - If no description fits, use the shared principles below without forcing the problem into a specialized workflow. Add a new reference only after a distinct workflow has been validated in real work.
 
 ## Maintain an evidence boundary
@@ -33,6 +33,12 @@ Attach a run/revision identity to evidence. A missing probe record is missing ev
 Reproduce with the smallest representative case and, when available, a known-good baseline. Compare equivalent inputs and execution roles, then trace control flow and data flow until the first observable mismatch. Treat later errors and metric differences as consequences until shown otherwise.
 
 Close the smallest remaining evidence gap with a focused log, runtime inspection, source comparison, or controlled intervention. Do not run a broader experiment when a narrower probe can distinguish the current hypotheses.
+
+## Plan comparisons around the claim
+
+When a workaround or backend switch is being compared with a repair, record a small matrix of baseline/fixed versus the relevant execution paths. Mark each cell observed, untested, or source-inferred, with its run identity. Reuse compatible evidence; run the missing cells needed for the requested conclusion rather than automatically exhausting every combination.
+
+Locate the switch in the data flow and identify inputs computed before it. A downstream fallback removing one symptom does not establish that it repairs an upstream defect. For stateful failures, keep fresh-process controls and comparable inputs, load sequences, and stop conditions. Different anomaly counts across independent runs do not establish a difference in failure probability.
 
 ## Report the result
 

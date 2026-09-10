@@ -50,6 +50,24 @@ For recurrent operators, finite q/k/v/g/beta does not establish finite inputs: t
 
 “State was already bad before this call” does not prove it was bad before the request started, before prefill, or before previous recurrent calls. Trace the same request and slot through allocation, initialization, each write, reuse, and the failing read if writer attribution is required.
 
+## Audit token layout and collective semantics
+
+For periodic bad rows or matching local bad indices across ranks, inspect communication boundaries alongside cache addresses. Compare the observed spacing with the actual padded token count and shard lengths for that failing step. Periodicity is a lead, not proof of SP or a particular writer.
+
+Build a compact mapping at the first bad boundary:
+
+```text
+rank | local row | global token | request/token position | live or padding
+```
+
+For a confirmed contiguous equal split, global row = rank * shard_length + local row. Do not apply this formula to reordered, packed, or uneven layouts without tracing their mappings. All-reduce requires corresponding elements to represent partial contributions to the same logical token; matching shapes, successful collectives, and identical outputs across ranks do not establish that contract.
+
+Trace token ownership and weight ownership separately through the producer, MLP, and consumer. With token-sharded inputs and TP-sharded weights, a valid implementation may gather tokens before local projections and reduce-scatter the resulting partial sums. Other implementations may replicate weights or provide communication in an enclosing wrapper. Check the selected process group and avoid adding a second reduction. Audit standalone dense, routed experts, and shared experts separately, including inherited reduction defaults and optional alternate weight-sharding groups.
+
+Distinguish creation of a nonfinite padding value from its propagation into live tokens. A demonstrated propagation defect can be repaired without claiming the original padding writer was identified. Conversely, merely clearing padding can hide a communication error that also mixes finite tokens.
+
+For a communication repair, a small multi-rank reference can test distinct finite token inputs, padding nonfinite isolation, and the non-SP path. Compare against the same full-weight computation and make the old path fail for the intended semantic reason. Label lightweight projection or CPU tests as communication validation; retain original-backend validation for the actual quantized implementation.
+
 ## Probe graph execution without silently changing it
 
 - Determine compile, capture, replay, or eager failure before choosing instrumentation. Python hooks inside captured forward normally do not run during replay.

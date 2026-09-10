@@ -15,6 +15,14 @@ Inspect branch, HEAD, rebase state, and staged/unstaged changes in the exact wor
 - Treat `shared_by` descriptors and `layers`/offset/stride descriptors as different contracts. Several descriptors may describe one backing allocation; summing their `size` can double-count it. Conversely, separate old-style tensors may require summing sizes. Read the actual consumer before writing geometry assertions.
 - A version-specific planner test may need `skipif`; a grouping-only test using shared interfaces generally does not inherit that restriction. Inspect Python decorator attachment after resolving a conflict; keep independent upstream and candidate tests.
 
+## Compare hardware backends through the effective path
+
+When judging whether another backend shares a defect, trace model registration and platform selection, runner input preparation, the selected model and inherited layer defaults, communication wrappers, and applicable compiler rewrites. Absence of an explicit shard operation in one model class does not establish that its inputs are unsharded.
+
+Record effective feature defaults and the guards that enable an optimization. Distinguish token padding from token partitioning, weight sharding from token sharding, and graph capture from compiler transformations. For an SP rewrite, follow both its entry and exit communications to establish the layout seen by the next ordinary layer. Compare logical token identity at the disputed operation rather than class names alone.
+
+Pin conclusions to the inspected revision and configuration. Separate default-path source reasoning, manually enabled optional paths, and hardware execution; do not generalize a source audit into a claim that an entire backend is free of numerical defects.
+
 ## Select assertions that detect the regression
 
 Place new cases beside existing tests of the same helper. For a grouping-gate fix, verify that a valid heterogeneous configuration produces groups, required per-group contracts survive, and incompatible attention sizes still fail. Give negative tests a known-valid starting case.

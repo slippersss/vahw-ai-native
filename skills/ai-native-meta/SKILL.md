@@ -36,8 +36,9 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 ## Continuous learning
 
 - During real work, notice practices, lessons, and recurring patterns that may be worth preserving.
-- Proactively remind the user at a natural checkpoint when something appears reusable.
-- Do not promote a one-off observation into a lasting rule or skill without the user's agreement.
+- The user authorizes autonomous creation and refinement of repository skills from validated practice. Make focused improvements when they will improve future work, and briefly report what changed at a natural checkpoint.
+- Preserve evidence boundaries: an unverified hypothesis or a case-specific constant is not a reusable rule. Prefer extending the relevant existing skill over adding overlapping skills; revise or remove guidance when later evidence contradicts it.
+- This authorization covers local skill maintenance, not additional remote experiments, deployments, or Git commits and pushes; those retain their task-specific authorization requirements.
 
 ## Skill authoring
 
