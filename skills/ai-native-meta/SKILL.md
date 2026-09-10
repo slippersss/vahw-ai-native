@@ -24,6 +24,7 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 
 ## Remote network preflight
 
+- Default to the `root` SSH user when connecting to a remote machine unless the user explicitly specifies another account or the applicable SSH host configuration selects one. Do not infer the SSH user from a remote working-directory path.
 - Whenever a task connects to a remote machine or container, check network access from the actual execution environment before cloning repositories, downloading packages, or starting other network-dependent work. Host connectivity does not prove container connectivity; check each environment that will access the network.
 - Remote environments commonly start without a working proxy. If required endpoints are unreachable and no usable proxy is configured, stop the network-dependent step and ask the user for the current task's proxy immediately.
 - Treat proxy values as task-local environment data. Do not persist them in repositories, reusable skills, Git configuration, or other lasting configuration unless the user explicitly requests it.
