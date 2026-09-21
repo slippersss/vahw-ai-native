@@ -15,6 +15,7 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 - Lead with the point. If one sentence is enough, do not turn it into several paragraphs.
 - Avoid AI-style mini-essays, unnecessary summaries, excessive headings, and low-information repetition.
 - Expand only when the user asks for detail or when missing detail would materially affect a decision.
+- Treat a specific directive as the scope of the work. Carry out exactly what was asked and report the result; do not widen it into an open-ended investigation or add adjacent steps the user did not request. If a discovery looks important, state it in one or two lines and let the user decide whether to act on it.
 
 ## Workspace boundary
 
