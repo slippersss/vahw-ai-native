@@ -24,6 +24,7 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 - [`remote-work`](skills/workflow/remote-work/SKILL.md)：多远程机器、执行前同步和长任务管理的最小工作流。
 - [`install-vllm-ascend`](skills/workflow/install-vllm-ascend/SKILL.md)：远程环境中选择兼容版本并从源码安装 vLLM 与 vLLM Ascend。
 - [`setup-vllm-ascend-fast`](skills/workflow/setup-vllm-ascend-fast/SKILL.md)：基于预装镜像快速建立远程软链接工作区、补全 vLLM 历史并对齐本地代码。
+- [`install-aisbench`](skills/workflow/install-aisbench/SKILL.md)：在远程昇腾环境中按惯用 tag 源码安装 AISBench benchmark。
 
 手动工具：
 
