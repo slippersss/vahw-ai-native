@@ -25,6 +25,9 @@ description: Coordinate local-first development on one or more SSH-accessible re
 ## Boundaries
 
 - Synchronization is execution-triggered by default; continuous background synchronization is not required.
+- Treat development checkouts as persistent user state. Before changing one, record its current branch or detached HEAD, commit, index, worktree diff, and relevant untracked files; preserve that state unless the user explicitly requests a change.
+- Use full Git clones for development work. Do not use shallow, single-branch, or history-filtered clones unless the user explicitly requests a disposable or depth-limited checkout. When inheriting an existing clone, verify `git rev-parse --is-shallow-repository` and complete its history before treating it as a development checkout.
+- Do not move HEAD, switch or create branches, reset, clean, discard changes, rewrite remotes, or replace an existing checkout merely as setup convenience. Obtain explicit direction when the requested task does not itself determine the intended repository state.
 - Do not store SSH private keys, passwords, tokens, or machine-specific secrets in the repository.
 - Do not build session orchestration, distributed scheduling, or conflict resolution until real work demonstrates the need.
 

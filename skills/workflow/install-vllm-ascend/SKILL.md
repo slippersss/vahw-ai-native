@@ -11,12 +11,12 @@ Use this workflow together with the applicable remote-work rules. Treat local re
 
 ## Select compatible revisions
 
-1. Ensure `vllm-project/vllm` and `vllm-project/vllm-ascend` clones exist in both the local workspace and the resolved remote work directory. Do not install anything into the local environment.
+1. Ensure full-history `vllm-project/vllm` and `vllm-project/vllm-ascend` clones exist in both the local workspace and the resolved remote work directory. Never use shallow clones for these development repositories. Verify `git rev-parse --is-shallow-repository` returns `false` for all four checkouts before installation, and do not install anything into the local environment.
 2. Read the user's request for a vLLM Ascend commit, branch, tag, or latest commit. Ask which to use only when it is not already specified.
-3. Fetch when needed, check out that vLLM Ascend revision, and record the exact commit used remotely.
+3. Fetch when needed, check out that vLLM Ascend revision on the user-selected branch, or on a clearly named local branch when the request specifies only a commit or tag, and record the exact commit used remotely. Do not leave a development checkout with a detached HEAD.
 4. At that revision, read `.github/vllm-main-verified.commit` and `.github/vllm-release-tag.commit` to obtain the supported vLLM main and release choices.
 5. Read the user's request for a main/main2main or release choice. Ask only when it is not already specified. `main commit` and `main2main commit` both mean the commit in `vllm-main-verified.commit`.
-6. Check out the selected vLLM commit or tag. Preparatory local and remote heads may naturally differ by a few upstream commits, but the remote installation revisions must be explicit and compatible with the local edits being synchronized.
+6. Check out the selected vLLM commit or tag on the user-selected branch, or on a clearly named local branch when no branch is specified. Do not leave a development checkout with a detached HEAD. Preparatory local and remote heads may naturally differ by a few upstream commits, but the remote installation revisions must be explicit and compatible with the local edits being synchronized.
 
 ## Prepare the remote environment
 
