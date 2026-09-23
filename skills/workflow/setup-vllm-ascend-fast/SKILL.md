@@ -29,6 +29,52 @@ ln -s /vllm-workspace/vllm-ascend vllm-ascend
 
 Before creating each link, inspect any existing path. Preserve existing data and stop for direction if it is not already the intended link. Keep logs, helper scripts, and other operational artifacts outside both linked source repositories.
 
+### Site-packages fallback for temporary debugging
+
+Some prepared containers do not expose `/vllm-workspace`, but Python may still
+load source trees directly from `site-packages`. When the user explicitly asks
+for a temporary debug workspace, resolve the actual package directories first:
+
+```bash
+python -c 'import vllm, vllm_ascend; print(vllm.__path__[0]); print(vllm_ascend.__path__[0])'
+```
+
+If the requested workspace paths are absent and the resolved package directories
+are the intended sources, link them instead:
+
+```bash
+ln -s /resolved/site-packages/vllm "$REMOTE_WORKDIR/vllm"
+ln -s /resolved/site-packages/vllm_ascend "$REMOTE_WORKDIR/vllm-ascend"
+```
+
+Before linking, inspect both source directories for existing `.git` metadata and
+inspect the destination paths. Preserve an existing non-link destination and
+stop for direction; do not overwrite it. This fallback is for temporary
+debugging, not a production installation.
+
+Add only the minimum generated-file exclusions and create an initial snapshot
+when no Git repository already exists:
+
+```bash
+printf '__pycache__/\n*.pyc\n' > /resolved/site-packages/vllm/.gitignore
+printf '__pycache__/\n*.pyc\n' > /resolved/site-packages/vllm_ascend/.gitignore
+if [ ! -e /resolved/site-packages/vllm/.git ]; then
+  git -C "$REMOTE_WORKDIR/vllm" init
+  git -C "$REMOTE_WORKDIR/vllm" add -A
+  git -C "$REMOTE_WORKDIR/vllm" -c user.name=debug -c user.email=debug@localhost commit -m init
+fi
+if [ ! -e /resolved/site-packages/vllm_ascend/.git ]; then
+  git -C "$REMOTE_WORKDIR/vllm-ascend" init
+  git -C "$REMOTE_WORKDIR/vllm-ascend" add -A
+  git -C "$REMOTE_WORKDIR/vllm-ascend" -c user.name=debug -c user.email=debug@localhost commit -m init
+fi
+```
+
+Verify symlink targets, clean status, and commit IDs after the snapshot. Because
+Git metadata created through the symlink resides in the actual `site-packages`
+directories, report that side effect explicitly. Do not claim the package is
+editable unless the import path resolves to the linked directory.
+
 ## Complete the image's vLLM clone
 
 The image's vLLM repository may be a depth-one clone with a detached HEAD. Preserve its original commit while making normal branch operations possible:
