@@ -20,6 +20,8 @@ When the user asks to check formatting, act on the changed files rather than mer
 
 For ordinary Python changes in this repository, this normally means Ruff check and Ruff format on the changed Python files. Add spelling, repository-local, and tests according to the request and affected files.
 
+Also inspect the PR workflow for checks outside pre-commit. For Python UT changes, run the configured mypy check with `--check-untyped-defs`; passing pytest and Ruff does not establish type-check success. Read the pinned mypy version from `requirements-lint.txt` and the target Python versions from the workflow. Match the workflow's source lookup paths and checked root (for example `tests`), because `--follow-imports skip` can make a single-file check miss cross-file errors. Keep type-check results separate from runtime UT results, and report unavailable checks or missing dependencies without claiming a complete CI pass.
+
 ## Install pre-commit
 
 Prefer the active Python interpreter and the Huawei internal PyPI mirror in remote Ascend containers:
