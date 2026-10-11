@@ -53,6 +53,7 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 
 ## AI-authored commits
 
+- Before committing or creating a PR, inspect the target repository's recent commit subjects, recent PR titles, and contribution rules. Follow its established title format, language, and actual type/category usage; do not impose a personal convention or copy another repository's style. Repository-specific conventions take precedence over the defaults below. If the evidence is ambiguous, ask the user before publishing.
 - Keep each commit focused on one coherent change.
 - Use an English Conventional Commit subject: `<type>(<optional-scope>): <summary>`.
 - Prefer `feat`, `fix`, `test`, `docs`, `refactor`, or `chore`; keep the subject concise and imperative.
