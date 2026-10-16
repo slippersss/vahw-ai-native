@@ -10,7 +10,7 @@ skills/
 ├── feature/          # 特性开发经验与能力
 ├── debugging/        # 问题定位经验与能力
 ├── testing/          # 测试经验与能力
-└── workflow/         # 跨任务工作流
+└── workflow/         # 安装、环境准备与远程执行等操作流程
 
 misc/                 # 非主流程、供用户手动运行的实用工具
 workspace/            # 实际业务工作区，不由 meta 仓库跟踪
@@ -21,6 +21,7 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 - [`ai-native-meta`](skills/ai-native-meta/SKILL.md)：沟通、沉淀、Skill 编写和提交约定。
 - [`learning`](skills/learning/SKILL.md)：渐进式技术学习、精确图示、阶段材料整理与资料仓发布流程。
 - [`debugging`](skills/debugging/SKILL.md)：证据驱动定位，包含推理一致性、Ascend 数值与 KV cache 污染、图模式探针，以及跨版本回归 UT 接口核对。
+- [`benchmark-vllm-ascend`](skills/testing/benchmark-vllm-ascend/SKILL.md)：推理性能测试，包含 AISBench、vLLM bench、前缀数据工具、并发扫描、TPOT 配平与指标核对。
 - [`remote-work`](skills/workflow/remote-work/SKILL.md)：多远程机器、执行前同步和长任务管理的最小工作流。
 - [`install-vllm-ascend`](skills/workflow/install-vllm-ascend/SKILL.md)：远程环境中选择兼容版本并从源码安装 vLLM 与 vLLM Ascend。
 - [`setup-vllm-ascend-fast`](skills/workflow/setup-vllm-ascend-fast/SKILL.md)：基于预装镜像快速建立远程软链接工作区、补全 vLLM 历史并对齐本地代码。
