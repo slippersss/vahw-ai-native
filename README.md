@@ -25,6 +25,7 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 - [`write-validation-report`](skills/workflow/write-validation-report/SKILL.md)：用于测试、调试和特性开发的自包含技术报告，覆盖证据与图表、客观结论、复现附录及 Markdown 目录交付。
 - [`remote-work`](skills/workflow/remote-work/SKILL.md)：多远程机器、执行前同步和长任务管理的最小工作流。
 - [`install-vllm-ascend`](skills/workflow/install-vllm-ascend/SKILL.md)：远程环境中选择兼容版本并从源码安装 vLLM 与 vLLM Ascend。
+- [`install-vllm-gpu`](skills/workflow/install-vllm-gpu/SKILL.md)：在 NVIDIA GPU 容器中安装 editable vLLM，覆盖预编译扩展、依赖兼容、启动排障和分层验收。
 - [`setup-vllm-ascend-fast`](skills/workflow/setup-vllm-ascend-fast/SKILL.md)：基于预装镜像快速建立远程软链接工作区、补全 vLLM 历史并对齐本地代码。
 - [`install-aisbench`](skills/workflow/install-aisbench/SKILL.md)：在远程昇腾环境中按惯用 tag 源码安装 AISBench benchmark。
 
