@@ -9,11 +9,13 @@ description: Diagnose software failures and inference regressions using runtime 
 
 ## Choose the debugging mode
 
+- For suspicious acceptance, ITL/TPOT, throughput or occupancy statistics, read [references/inference-metric-diagnostics.md](references/inference-metric-diagnostics.md) to distinguish measurement semantics from an execution defect.
 - For a deterministic failure with an explicit exception or stack trace, read [references/deterministic-failure.md](references/deterministic-failure.md).
 - For Ascend device exceptions or apparent hangs pointing to invalid kernel memory access, especially when ranks or graph/eager modes differ, read [references/ascend-kernel-memory-faults.md](references/ascend-kernel-memory-faults.md). Use it to isolate the faulting launch and test allocation-boundary hypotheses.
 - For successful vLLM requests that differ across backends, devices, versions, quantization modes, or deployments, read [references/vllm-inference-consistency.md](references/vllm-inference-consistency.md). Use its input-equivalence gate before comparing downstream metrics.
 - For load-dependent NaN/Inf, repeated-token collapse, recurrent-state corruption, or incompatible shared KV layouts on Ascend, read [references/vllm-ascend-numerical-debugging.md](references/vllm-ascend-numerical-debugging.md). This also covers bounded graph probes and operator replay.
 - For graph-mode failures where hidden states, positions, RoPE tensors, slot mappings, or KV inputs disagree on their token dimension, read [references/vllm-ascend-token-alignment.md](references/vllm-ascend-token-alignment.md). Use it to separate logical token counts from padded physical shapes and audit upstream-to-Ascend metadata semantics.
+- For cross-stage batch metadata or reused synchronization, also use the token-alignment reference to audit producer/consumer contracts and idle-participant paths.
 - When converting a fix into a regression test, porting it across vLLM revisions, or checking whether another hardware backend shares it, read [references/vllm-regression-interface-audit.md](references/vllm-regression-interface-audit.md).
 - If no description fits, use the shared principles below without forcing the problem into a specialized workflow. Add a new reference only after a distinct workflow has been validated in real work.
 

@@ -41,3 +41,9 @@ Separate:
 4. Hardware/operator or original-workload validation.
 
 One level does not establish the next. Never relabel a missing dependency as a test pass or a product failure. If only theory is requested, inspect rather than install dependencies or run services. Repeated requests to double-check should produce a concrete additional check or an explicit remaining gap, not rising confidence percentages.
+
+## Hand off a minimal patch
+
+Export the intended fix and regression tests together when requested, identifying the base revision, dependencies and workaround/repair status. Exclude unrelated changes and diagnostics. Place tests with the contract they exercise, not around a convenient mock.
+
+Check applicability against the documented clean base when available, separately from tests and hardware validation. Preserve requested repository boundaries and label superseded alternatives to prevent accidental combination.

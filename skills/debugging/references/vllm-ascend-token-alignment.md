@@ -43,6 +43,14 @@ When Ascend overrides an upstream builder or extends its metadata class:
 
 A single upstream count can legitimately change meaning by mode. After a backend splits it into separate logical and physical counts, copying the old branch condition may violate the new field contract even though the code looks equivalent.
 
+## Cross-stage metadata and synchronization
+
+Trace each transferred field's producer, unit, validity scope and downstream consumers. Live requests, logical tokens and padded capacity are different quantities; conversion requires a verified layout, especially when work is dynamically pruned. Metadata valid for one stage is not automatically valid for the next.
+
+For reused synchronization state, prove coverage of downstream work. Replacing it requires compatible collective participation and ordering across relevant ranks, including those with no local work. Check consumers beyond the first failing operator; removing an assertion does not establish correctness.
+
+Distinguish runtime idle work from capture/profiling inputs before changing dummy metadata. Such changes can affect both correctness and execution profiles. Validate relevant active/idle and logical/padded paths without treating local mocks as proof of distributed behavior.
+
 ## Probe the earliest length decisions
 
 Instrument narrowly and gate temporary probes behind an environment variable. Useful checkpoints are:

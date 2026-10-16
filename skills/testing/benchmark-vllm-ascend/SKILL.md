@@ -53,6 +53,8 @@ Do not transplant TP settings into PCP or replace model families/parsers without
 
 Repeated text, repeated requests and prefix-cache hits are separate properties. Describe the constructed load as a performance workload, not an accuracy evaluation.
 
+When a reusable data generator is needed, expose workload-defining inputs and derive meaningful output names. Validate exact counts, ordering and length semantics, including non-divisible expansion sizes. Reuse only identity-matched files and reject conflicts; verify generation, reuse and conflict behavior before formal use. Do not add a generator when frozen data already suffices.
+
 ## Validate the supply chain before interpreting model speed
 
 - Inspect client → proxy → P → transfer → D. Configured concurrency is not actual D running, and resident running requests are not the exact verification shape of each step.

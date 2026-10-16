@@ -39,3 +39,9 @@ description: Coordinate local-first development on one or more SSH-accessible re
 - Keep a hypothesis/change/result record for each run, including failures before model execution. Use an existing prepared container when authorized; a special session coordinator is not required for ordinary SSH work.
 - Stop only recorded task-owned clients/services, verifying current process identity before signaling. Avoid broad process-name kills and process groups that include SSH or unrelated work. Confirm worker/device release when handing the machine over.
 - Preserve completed and partial evidence before cleanup. A metadata flag or exited launcher does not prove all workers stopped; unreachable targets remain unverified.
+
+## Pause and resume long jobs
+
+- Distinguish immediate cancellation from pausing after the active unit completes. Stop future scheduling as well as handling the active job; do not alter its dependencies while waiting.
+- Save a checkpoint: completed/failed/partial/pending work, authoritative inputs/configuration, process identities, evidence paths and next action. Partial output is not completed work.
+- Reconcile the checkpoint with live state before resuming. A stale PID/status file or local timeout does not establish completion or justify a duplicate launch. Reuse compatible services; after a restart, re-establish required readiness, cache and measurement state rather than continuing old counters.
