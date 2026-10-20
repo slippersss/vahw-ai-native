@@ -5,7 +5,7 @@ description: Guide an interactive technical learning session from small explanat
 
 # Incremental technical learning
 
-> 中文导读：用于循序渐进的技术学习会话。每次只推进一个可消化的层级，用图和代码建立可检查的心智模型；阶段完成后整理成可复用资料，并按用户要求发布到独立资料仓。
+> 中文导读：用于循序渐进的技术学习会话。每次只推进一个可消化的层级，用图和代码建立可检查的心智模型；节奏由学习者决定，不擅自推进；阶段完成后整理成可复用资料，并按用户要求发布到独立资料仓。
 
 Run the session as a dialogue, not a compressed tutorial. Optimize for a mental model the learner can inspect and correct one piece at a time, then preserve the validated path as reusable material.
 
@@ -13,9 +13,10 @@ Run the session as a dialogue, not a compressed tutorial. Optimize for a mental 
 
 - Organize a broad subject into explicit levels, moving from system role, to component behavior, to software structure, and finally implementation details.
 - Explain only the next useful concept. Do not front-load later levels or surrounding knowledge merely because it will eventually matter.
-- End each response at a natural checkpoint. Let the user's confirmation or question determine the next step.
-- Say clearly when a level is complete, whether the current material is a side topic, and what the next level would cover.
-- When the learner reveals a missing prerequisite, pause the main line, teach the minimum prerequisite in a separately named side line, then return to the exact point where the main line stopped.
+- End each response at a natural checkpoint. Let the user's confirmation or question determine the next step. A checkpoint is a full stop: report that the level is complete and wait.
+- The learner owns the pace. Advance only when the learner explicitly asks to continue or asks for the next topic. Never append an unrequested level, an unrequested side topic, or a diagram for a different level to the response that finishes the current one, and never close with a menu of next steps or a "shall we continue?" prompt.
+- Say clearly when a level is complete, whether the current material is a side topic, and how it connects to the main line.
+- When the learner reveals a missing prerequisite, pause the main line and teach the minimum prerequisite in a separately named side line. Stop there; resume the main line only when the learner asks.
 - Treat repeated confusion as evidence that the explanation or abstraction is wrong, not that the learner needs the same wording again.
 
 ## Keep the conceptual structure honest
@@ -31,7 +32,7 @@ Run the session as a dialogue, not a compressed tutorial. Optimize for a mental 
 
 ## Make diagrams semantically precise
 
-- Give every substantive level a focused diagram when structure, layout, ownership, timing, or data movement matters. Prefer repository-native SVG for durable learning artifacts; use sequence-style SVGs when following code execution.
+- Give every substantive level a focused diagram when structure, layout, ownership, timing, or data movement matters. Prefer repository-native SVG for durable learning artifacts; use sequence-style SVGs when following code execution. When the learner prefers to defer diagrams, keep the level's text complete on its own and draw them only when asked.
 - Number main-line figures continuously in presentation order. Give prerequisite and side-topic figures a separate filename/title series.
 - Keep the represented object consistent across related examples. Do not silently switch among a scalar, vector, token, request, expert, rank, collective call, or time interval.
 - Label what repeated shapes mean: operation count, payload volume, tensor partitions, chunks within one operation, or separate participants.
