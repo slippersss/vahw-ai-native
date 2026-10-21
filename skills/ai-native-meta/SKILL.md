@@ -55,8 +55,9 @@ These are workspace-level rules. Keep them separate from business knowledge, pro
 
 - Before committing or creating a PR, inspect the target repository's recent commit subjects, recent PR titles, and contribution rules. Follow its established title format, language, and actual type/category usage; do not impose a personal convention or copy another repository's style. Repository-specific conventions take precedence over the defaults below. If the evidence is ambiguous, ask the user before publishing.
 - Keep each commit focused on one coherent change.
-- Use an English Conventional Commit subject: `<type>(<optional-scope>): <summary>`.
-- Prefer `feat`, `fix`, `test`, `docs`, `refactor`, or `chore`; keep the subject concise and imperative.
+- Use an English Conventional Commit subject: `<type>(<optional-scope>): <summary>`; keep it concise and imperative.
+- For this skills and knowledge repository, normally use only `feat` and `chore`: use `feat` for new capabilities or workflows, and `chore` for maintaining or correcting existing skills, rules and knowledge. Do not classify a skill correction as a software bug fix or introduce `fix` merely because generic Conventional Commit conventions allow it. The historical `init` subject is for repository initialization, not ongoing changes.
+- This repository-specific type convention does not apply automatically to business code repositories under `workspace/`; follow each target repository's actual conventions.
 - Default to a subject-only message. These repositories are usually simple,
   so the subject should normally describe the change completely.
 - Add a body only when the subject cannot explain a necessary reason or a
