@@ -7,6 +7,12 @@ description: Write or revise self-contained technical reports for testing, debug
 
 > 中文导读：用于测试、调试和特性开发，将已有工作整理成第三方能独立阅读、核对和复现的报告。正文解释问题、方法、证据与结论；完整数据、环境、代码或脚本和操作步骤放附录。默认普通 Markdown 配相对路径附件，不依赖聊天历史或操作者工作目录。
 
+## Output format and repository routing
+
+- For reports in this repository, use this skill before selecting a generic document-generation skill.
+- Produce only ordinary Markdown with relative-path attachments unless the user explicitly requests another format. “Write a report” or “follow the skill” does not authorize choosing DOCX, PDF, slides or HTML.
+- Save the report and its dependencies under the task directory in `workspace/`; a chat output copy may be supplied for access. Do not substitute a Word document for the repository report.
+
 ## Primary acceptance criterion: reproduce from the report
 
 Self-contained means **a later reader can reconstruct and verify the reported experiment, failure or feature behavior using the report and its supplied attachments, without asking the original operator, reading the chat, or accessing the original workspace**. Readability alone is insufficient. Put the complete procedure in the report; attachments supply actual code/scripts/data rather than instructions hidden elsewhere. If the user requests one Markdown file, inline the necessary scripts/configuration in its appendices where practical, and identify any essential external data explicitly.
