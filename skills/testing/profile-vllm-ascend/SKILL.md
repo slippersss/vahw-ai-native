@@ -48,7 +48,7 @@ Stop within the agreed window even if the benchmark continues. Use an ordinary f
 - A middle window may miss rare failures. Inspect all ranks and use full-run host admission/lifecycle counters to establish whether the target event occurred. Missing evidence is not evidence of no anomaly.
 - Save raw captures, exported tables/traces and rank mapping before cleanup. Distinguish capture stopped, export complete, local copy complete and workers stopped. Offline CPU analysis can often continue after device workers are released; verify which process still owns device resources instead of reserving cards for file transfer.
 
-For long-job ownership and handover use the repository remote-work workflow.
+Use [Ascend profile analysis](../../debugging/analyze-ascend-profile/SKILL.md) for attribution. For long-job ownership and handover use the repository remote-work workflow.
 
 ## Provenance
 

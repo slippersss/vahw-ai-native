@@ -45,3 +45,16 @@ description: Coordinate local-first development on one or more SSH-accessible re
 - Distinguish immediate cancellation from pausing after the active unit completes. Stop future scheduling as well as handling the active job; do not alter its dependencies while waiting.
 - Save a checkpoint: completed/failed/partial/pending work, authoritative inputs/configuration, process identities, evidence paths and next action. Partial output is not completed work.
 - Reconcile the checkpoint with live state before resuming. A stale PID/status file or local timeout does not establish completion or justify a duplicate launch. Reuse compatible services; after a restart, re-establish required readiness, cache and measurement state rather than continuing old counters.
+
+## Migrate an experiment without changing its meaning
+
+- Capture the effective environment by role: container image identity, interpreter/import roots, source revisions and local patches, native libraries, model/tokenizer/config identity, launch arguments, devices, network route, shared storage/control services and client inputs. An identical image alone is not an identical experiment.
+- Inspect new mount/model paths and configuration contents before substitutions. A missing old path is a discovery problem; do not change model, quantization, topology or memory budget to make a launcher start. Keep credentials and proxy values in task-local configuration.
+- Check source aliasing when creating symlink workspaces or multiple containers. Two launch directories can edit the same mounted source; separate containers can share Meta, pool namespaces and host ports. Do not assume they isolate experimental variables.
+- Separate preparation, startup failure, warmup, formal measurement, profiler export and local retrieval. Do not compare a startup-failed attempt or warmed subset with a completed formal run.
+
+## Release scarce devices before finishing offline work
+
+When the user ends device use, stop future launchers and owned clients/services, verify descendants and API/engine workers, then inspect device process ownership. An exited parent or empty status file is insufficient. Do not kill unrelated work or shared control services merely to reach a clean display.
+
+Report device release, source restoration and artifact retrieval as separate facts. CPU-only export, archive transfer and local analysis can continue after device release when their process dependencies permit it; do not reserve cards just to copy files. Preserve failed/partial evidence and a checkpoint if retrieval cannot finish.

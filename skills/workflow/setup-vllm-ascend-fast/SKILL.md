@@ -29,6 +29,8 @@ ln -s /vllm-workspace/vllm-ascend vllm-ascend
 
 Before creating each link, inspect any existing path. Preserve existing data and stop for direction if it is not already the intended link. Keep logs, helper scripts, and other operational artifacts outside both linked source repositories.
 
+Links are aliases, not isolated checkouts. Record resolved targets before editing and check whether other containers/workspaces share them. For diagnostic source edits, preserve the prior diff, synchronize only the intended files, and restart the affected owned workers before attributing results to those edits. A source-only Python change may need no rebuild, but native-extension changes require the matching build/load verification. Do not change source under an active comparison.
+
 ### Site-packages fallback for temporary debugging
 
 Some prepared containers do not expose `/vllm-workspace`, but Python may still
