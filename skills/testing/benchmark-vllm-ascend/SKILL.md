@@ -20,6 +20,8 @@ For executable setup, configuration and result handling for **native AISBench**,
 
 Use the installed tool versions and their actual README/source as the command authority. Do not assume flags are stable across releases.
 
+For prefill-only, prefix-reuse or pooled P/D comparisons, read [Prefill and cache comparisons](references/prefill-and-cache.md). It covers arrival replay, native throughput definitions, all-rank cache coverage and topology equivalence.
+
 Upstream sources:
 
 - [rayn-zzz/aisbench_auto_tools_prefix](https://github.com/rayn-zzz/aisbench_auto_tools_prefix), with its [README](https://github.com/rayn-zzz/aisbench_auto_tools_prefix/blob/main/README.md): the wrapper providing `aisbench_test.py`, `config.py`, dataset generation and prefix-cache test options.
@@ -105,7 +107,7 @@ Check the installed client's implementation before applying formulas. Preserve n
 - **AV pruning:** native denominators may include positions never verified. Do not call this actual-sent acceptance or infer an execution bug from a lower native ratio alone. Actual-sent diagnostics need sent counts and correctly aligned accepted positions, including zero-sent requests/rounds. Record instrumentation overhead and compare representative workloads after any small reproducer.
 - **Running:** retain the rank series and the aggregation/window definition. Report median and requested P60/P70/P80/P90; explicitly say ascending or descending. Descending P80 corresponds to ascending P20. Distinguish sample-weighted from time-weighted statistics.
 
-Collect at least C, N, output throughput, AVG TPOT, AVG ITL, ITL/TPOT, success/failure, actual lengths, running distribution, per-position acceptance and acceptance length. Add TTFT, queues, cache, preemption and process statistics when available or needed for interpretation; mark unavailable fields as missing, not zero.
+Collect C, N, success/failure, actual lengths and the primary metric required by the question. For multi-token decoding comparisons, also retain output throughput, AVG TPOT, AVG ITL, ITL/TPOT, running distribution and applicable acceptance counters. For one-token prefill tests, prioritize input throughput, native prefill throughput, TTFT, duration, cache hits and scheduled work; TPOT and ITL may be undefined. Mark unavailable or inapplicable fields explicitly rather than inventing zero values.
 
 ### Required result record
 
