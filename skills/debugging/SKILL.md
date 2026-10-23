@@ -1,6 +1,6 @@
 ---
 name: debugging
-description: Diagnose software failures and inference regressions using runtime evidence and source-level data flow. Use for deterministic exceptions, cross-deployment output differences, Ascend kernel faults, graph-padding token-shape mismatches, and load-dependent NaN or KV-cache corruption, including graph replay and regression-test interface audits.
+description: Diagnose software failures and inference regressions using runtime evidence and source-level data flow. Use for exceptions, output differences, Ascend faults, profiling, KV admission failures or delayed release, graph-padding mismatches, and load-dependent NaN or cache corruption.
 ---
 
 # Evidence-driven debugging
@@ -10,8 +10,8 @@ description: Diagnose software failures and inference regressions using runtime 
 ## Choose the debugging mode
 
 - For Ascend serving profiling, kernel timelines, padding or cross-rank communication attribution, use [analyze-ascend-profile](analyze-ascend-profile/SKILL.md). Keep event inspection separate from a proven causal explanation.
-
 - For suspicious acceptance, ITL/TPOT, throughput or occupancy statistics, read [references/inference-metric-diagnostics.md](references/inference-metric-diagnostics.md) to distinguish measurement semantics from an execution defect.
+- For KV allocation failures, queued requests that cannot join a batch, repeated small prefill tails or delayed release, read [references/kv-admission-and-lifecycle.md](references/kv-admission-and-lifecycle.md). It covers physical-block accounting, asynchronous lifetimes, capacity bounds and controlled interventions.
 - For a deterministic failure with an explicit exception or stack trace, read [references/deterministic-failure.md](references/deterministic-failure.md).
 - For Ascend device exceptions or apparent hangs pointing to invalid kernel memory access, especially when ranks or graph/eager modes differ, read [references/ascend-kernel-memory-faults.md](references/ascend-kernel-memory-faults.md). Use it to isolate the faulting launch and test allocation-boundary hypotheses.
 - For successful vLLM requests that differ across backends, devices, versions, quantization modes, or deployments, read [references/vllm-inference-consistency.md](references/vllm-inference-consistency.md). Use its input-equivalence gate before comparing downstream metrics.

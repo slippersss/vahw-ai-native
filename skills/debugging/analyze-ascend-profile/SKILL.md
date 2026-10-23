@@ -23,7 +23,7 @@ For exact attribution and reviewable findings, read [Evidence and attribution](r
 4. Explain differences in counts and critical-path occupancy before assigning a slow kernel. Separate useful compute, padding, transfer/collectives and host dispatch/idle intervals.
 5. Follow the earliest divergence into the tested source revision. Close a specific evidence gap with bounded host counters or a controlled intervention rather than treating a visually prominent span as the cause.
 
-For collecting missing evidence use [Profile vLLM Ascend](../../testing/profile-vllm-ascend/SKILL.md).
+If small middle batches coexist with waiting work, use the [KV admission and lifecycle reference](../references/kv-admission-and-lifecycle.md). For collecting missing evidence use [Profile vLLM Ascend](../../testing/profile-vllm-ascend/SKILL.md).
 
 ## Large traces and parallel processing
 
