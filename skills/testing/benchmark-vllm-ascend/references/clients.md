@@ -28,6 +28,20 @@ When an external warmup has already been performed, add `--num-warmups 0` only i
 
 5. Preserve the resolved configuration, console logs, native summary/CSV and inference/performance detail artifacts under `RESULT_DIR`; locate their actual paths from the current tool output. Verify selected request count, successes/failures, actual lengths and measurement window before extracting TPS/TPOT/ITL. Do not depend on one hard-coded result subdirectory across versions.
 
+Native AISBench `3.1.20260630` has three previously observed pitfalls to recheck against the installed build: `retry` is the total
+attempt count (`retry=1` sends once; `retry=0` sends no request), `--dry-run`
+can still enter the API warmup pipeline, and the CLI can exit zero after every
+request fails. Check the installed implementation and independently require N
+successful unique prediction IDs, zero failures and a numeric native score.
+When an isolated Python environment supplies dependency overrides, invoke
+`python -m ais_bench.benchmark.cli.main`; a base-environment console script's
+shebang can bypass those overrides.
+
+For the native GSM8K loader in that version, relative dataset paths are resolved
+under the AISBench installation, not the process working directory. Resolve the
+frozen dataset to an absolute path during deployment, and validate the loader
+from a fresh directory without contacting the model endpoint.
+
 ## 2. vLLM bench serve
 
 Sources: [CLI reference](https://docs.vllm.ai/en/stable/cli/bench/serve/) and [upstream benchmark implementation](https://github.com/vllm-project/vllm/tree/main/vllm/benchmarks). Use `bench serve` for an existing HTTP service, including a P/D proxy. `bench throughput` is an offline benchmark and does not measure the same serving path.

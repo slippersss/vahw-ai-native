@@ -29,6 +29,7 @@ description: Coordinate local-first development on one or more SSH-accessible re
 - Use full Git clones for development work. Do not use shallow, single-branch, or history-filtered clones unless the user explicitly requests a disposable or depth-limited checkout. When inheriting an existing clone, verify `git rev-parse --is-shallow-repository` and complete its history before treating it as a development checkout.
 - Do not move HEAD, switch or create branches, reset, clean, discard changes, rewrite remotes, or replace an existing checkout merely as setup convenience. Obtain explicit direction when the requested task does not itself determine the intended repository state.
 - Do not store SSH private keys, passwords, tokens, or machine-specific secrets in the repository.
+- For Windows-to-Linux script transfers, send the file bytes through SSH stdin (for example with Python `subprocess.run(input=path.read_bytes())`). PowerShell text pipelines can append CRLF and leave a stray carriage return in a remote shell script. Verify the received content/hash and shell syntax before execution; do not infer successful execution from successful transfer.
 - Do not build session orchestration, distributed scheduling, or conflict resolution until real work demonstrates the need.
 
 ## Stateful multi-node debugging
