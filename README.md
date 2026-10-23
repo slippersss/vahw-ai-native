@@ -34,3 +34,5 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 - [`download-vllm-ascend-image.sh`](misc/download-vllm-ascend-image.sh)：在容器内通过 tag 或 digest 下载 vLLM Ascend 镜像并导出 Docker tar。
 
 具体经验从真实工作中逐步沉淀；一次性项目事实不直接升级为 meta 规则。
+
+- [`profile-vllm-ascend`](skills/testing/profile-vllm-ascend/SKILL.md)：真实负载中间窗口采集、完整rank覆盖、HTTP控制与导出/资源释放核验。
