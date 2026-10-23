@@ -37,3 +37,4 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 
 - [`profile-vllm-ascend`](skills/testing/profile-vllm-ascend/SKILL.md)：真实负载中间窗口采集、完整rank覆盖、HTTP控制与导出/资源释放核验。
 - [`analyze-ascend-profile`](skills/debugging/analyze-ascend-profile/SKILL.md)：跨rank、step、层和kernel分析，包含大trace流式读取、padding与异步等待归因。
+- [`deploy-ascend-kv-pooling`](skills/workflow/deploy-ascend-kv-pooling/SKILL.md)：已有环境下的MemCache DRAM池化部署，包含Meta、存储owner、P/D组合和实际外部命中验证。

@@ -1,0 +1,12 @@
+This workflow is a local synthesis informed by ascend-memcache-pooling in
+mindie-agent/awesome-mindie-skills, snapshot
+5bb728bd5421371af2223dd10518010bc798b1ce.
+
+The original A3/A5 pooling contribution was authored by zouyida2052 at
+f5108884c387175025eecf2e58021828f802a204 under CC0-1.0:
+https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+Yuli-yx contributed integration and monitoring guidance under MIT. The MIT
+permission notice is retained in LICENSES/MIT.txt. No upstream Python monitor,
+vendor binary, private config, credentials or historical dataset is copied.
+Official software projects referenced by those guides retain their licenses.
