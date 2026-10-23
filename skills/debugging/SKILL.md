@@ -9,6 +9,8 @@ description: Diagnose software failures and inference regressions using runtime 
 
 ## Choose the debugging mode
 
+- For Ascend serving profiling, kernel timelines, padding or cross-rank communication attribution, use [analyze-ascend-profile](analyze-ascend-profile/SKILL.md). Keep event inspection separate from a proven causal explanation.
+
 - For suspicious acceptance, ITL/TPOT, throughput or occupancy statistics, read [references/inference-metric-diagnostics.md](references/inference-metric-diagnostics.md) to distinguish measurement semantics from an execution defect.
 - For a deterministic failure with an explicit exception or stack trace, read [references/deterministic-failure.md](references/deterministic-failure.md).
 - For Ascend device exceptions or apparent hangs pointing to invalid kernel memory access, especially when ranks or graph/eager modes differ, read [references/ascend-kernel-memory-faults.md](references/ascend-kernel-memory-faults.md). Use it to isolate the faulting launch and test allocation-boundary hypotheses.

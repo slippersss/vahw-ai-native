@@ -36,3 +36,4 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 具体经验从真实工作中逐步沉淀；一次性项目事实不直接升级为 meta 规则。
 
 - [`profile-vllm-ascend`](skills/testing/profile-vllm-ascend/SKILL.md)：真实负载中间窗口采集、完整rank覆盖、HTTP控制与导出/资源释放核验。
+- [`analyze-ascend-profile`](skills/debugging/analyze-ascend-profile/SKILL.md)：跨rank、step、层和kernel分析，包含大trace流式读取、padding与异步等待归因。
