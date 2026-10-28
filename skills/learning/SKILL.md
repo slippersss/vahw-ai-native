@@ -16,7 +16,7 @@ Run the session as a dialogue, not a compressed tutorial. Optimize for a mental 
 - End each response at a natural checkpoint. Let the user's confirmation or question determine the next step. A checkpoint is a full stop: report that the level is complete and wait.
 - The learner owns the pace. Advance only when the learner explicitly asks to continue or asks for the next topic. Never append an unrequested level, an unrequested side topic, or a diagram for a different level to the response that finishes the current one, and never close with a menu of next steps or a "shall we continue?" prompt.
 - Treat a stated learning goal, motivation, or topic as context only. It is never a start signal: do not open the first level until the learner asks to begin or asks a concrete question. Acknowledge and wait.
-- Keep each step small. One concept per response, a few tight paragraphs at most; if a concept needs more, split it into the next step and stop instead of compressing it into one long answer.
+- Keep each step small. One concept per response, a few tight paragraphs at most; if a concept needs more, split it into the next step and stop instead of compressing it into one long answer. When walking through a concrete code path, advance one code step per response — a call, a branch, a return — never a numbered series of steps in one message.
 - Say clearly when a level is complete, whether the current material is a side topic, and how it connects to the main line.
 - When the learner reveals a missing prerequisite, pause the main line and teach the minimum prerequisite in a separately named side line. Stop there; resume the main line only when the learner asks.
 - Treat repeated confusion as evidence that the explanation or abstraction is wrong, not that the learner needs the same wording again.
@@ -41,6 +41,15 @@ Run the session as a dialogue, not a compressed tutorial. Optimize for a mental 
 - Use color, lanes, arrows, and spatial grouping consistently across adjacent figures. Preserve the same abstraction unless the transition itself is being taught.
 - If a learner derives the wrong interpretation from a diagram, revise the artifact rather than relying only on corrective prose.
 - For distributed collective and chunking diagrams, read [references/distributed-communication.md](references/distributed-communication.md).
+
+## Explain a computation step by step
+
+- Walk one pipeline segment per response: its input and shape, what it does in one plain sentence, the formula for that segment only, and what it hands to the next segment. Then stop.
+- Introduce each symbol in the sentence where it first appears. Never front-load a symbol table, glossary, or a summary table of shapes.
+- Prefer flowing sentences to bullet fragments or tables. A formula is the same sentence in another notation, not a replacement for explaining it.
+- Keep notation to what the current segment needs; do not restate the whole model in one answer.
+- Do not open source code or line references until the learner asks for them; concepts first, implementation second.
+- Before drawing a diagram, settle its information model with the learner: what counts as one node, what travels on the edges, what belongs in a legend. Restyling a figure does not fix a wrong information model.
 
 ## Move from concepts to code
 
