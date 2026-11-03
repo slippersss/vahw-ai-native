@@ -19,6 +19,8 @@ For a release accepting the inspected JSON interface, add the following fragment
 
 Confirm the installed profiler schema accepts these keys; older integrations differ. Shape recording is useful for padding attribution, and stack/shape collection costs belong to the diagnostic cohort. Do not restart an active measured service merely to add this fragment without fitting the requested experiment.
 
+Schema acceptance does not prove the integration forwards each option. Trace requested stack/shape settings into the actual profiler constructor and verify the saved capture configuration when available. If an adapter ignores an option, record its effective value and the resulting analysis limit rather than labeling the capture by the launcher flag.
+
 Define the role and expected rank/worker outputs; API processes, DP ranks and devices are not interchangeable counts. Resolve whether one API's profile call fans out to all required workers. Do not assume the benchmark proxy forwards profiler endpoints or call the same engine twice through aliases.
 
 Choose a window by the phenomenon: sustained running/waiting work, a scheduled progress boundary, or an explicit request cohort. For a middle-window request, start the ordinary benchmark first, observe that the intended load/cache state exists, then start profiling while it continues. Starting profiling before a separate short request wave is a different experiment. A fixed sleep without load evidence is not proof of a stable window.
