@@ -24,6 +24,7 @@ description: Coordinate local-first development on one or more SSH-accessible re
 
 ## Boundaries
 
+- On shared accelerators, check device health, memory and process ownership together with host/container launchers and workers that may still be loading or compiling. An empty device process list can miss a starting job. Recheck immediately before taking devices; an earlier idle snapshot is not a reservation. Preserve other users' work and migrate within the authorized scope when the target is occupied.
 - Synchronization is execution-triggered by default; continuous background synchronization is not required.
 - Treat development checkouts as persistent user state. Before changing one, record its current branch or detached HEAD, commit, index, worktree diff, and relevant untracked files; preserve that state unless the user explicitly requests a change.
 - Use full Git clones for development work. Do not use shallow, single-branch, or history-filtered clones unless the user explicitly requests a disposable or depth-limited checkout. When inheriting an existing clone, verify `git rev-parse --is-shallow-repository` and complete its history before treating it as a development checkout.
@@ -50,6 +51,8 @@ description: Coordinate local-first development on one or more SSH-accessible re
 ## Migrate an experiment without changing its meaning
 
 - Capture the effective environment by role: container image identity, interpreter/import roots, source revisions and local patches, native libraries, model/tokenizer/config identity, launch arguments, devices, network route, shared storage/control services and client inputs. An identical image alone is not an identical experiment.
+- Before launching a copied experiment, validate the data paths its configuration actually reads, script syntax and imports from the actual working directory. Successful transfer alone does not establish that the job can start.
+- Before a large-model startup from a new checkout, compare required ignored runtime assets with the working reference: extension libraries, generated version modules and vendor-package trees, including directory symlinks. Tracked-file parity and a search for `*.so` alone do not prove runtime parity. Verify required library paths and symbols before paying the model-loading cost.
 - Inspect new mount/model paths and configuration contents before substitutions. A missing old path is a discovery problem; do not change model, quantization, topology or memory budget to make a launcher start. Keep credentials and proxy values in task-local configuration.
 - Check source aliasing when creating symlink workspaces or multiple containers. Two launch directories can edit the same mounted source; separate containers can share Meta, pool namespaces and host ports. Do not assume they isolate experimental variables.
 - Separate preparation, startup failure, warmup, formal measurement, profiler export and local retrieval. Do not compare a startup-failed attempt or warmed subset with a completed formal run.
