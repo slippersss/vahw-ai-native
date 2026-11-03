@@ -106,7 +106,7 @@ elif [[ $reference =~ ^([^@]+)@(${digest_pattern})$ ]]; then
         echo "Error: invalid image tag in reference: $reference" >&2
         exit 2
     fi
-    source_image="${repository}:${tag}@${digest}"
+    source_image="${repository}@${digest}"
     archive_image="${repository}:${tag}"
     output_stem="${tag}-${digest#sha256:}"
 elif validate_tag "$reference"; then
