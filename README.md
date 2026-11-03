@@ -7,9 +7,9 @@
 ```text
 skills/
 ├── ai-native-meta/   # 工作区级元规则
-├── feature/          # 特性开发经验与能力
-├── debugging/        # 问题定位经验与能力
-├── testing/          # 测试经验与能力
+├── feature/          # 特性设计、实现、开发调试与验证
+├── debugging/        # 独立问题定位与通用排障能力
+├── testing/          # 可独立复用的测试与测量能力
 └── workflow/         # 安装、环境准备与远程执行等操作流程
 
 misc/                 # 非主流程、供用户手动运行的实用工具
@@ -20,6 +20,7 @@ workspace/            # 实际业务工作区，不由 meta 仓库跟踪
 
 - [`ai-native-meta`](skills/ai-native-meta/SKILL.md)：沟通、沉淀、Skill 编写和提交约定。
 - [`learning`](skills/learning/SKILL.md)：渐进式技术学习、精确图示、阶段材料整理与资料仓发布流程。
+- [`develop-feature-with-invariants`](skills/feature/develop-feature-with-invariants/SKILL.md)：**特性开发统一入口**。覆盖改前/改后静态分析、反例推敲、开发调试、测试设计、逐项 review 与风险留痕；按需使用通用执行和测量工具。
 - [`debugging`](skills/debugging/SKILL.md)：证据驱动定位，包含KV分配与释放时序、容量量化、推理一致性、Ascend数值与缓存污染、图模式探针和跨版本回归接口核对。
 - [`benchmark-vllm-ascend`](skills/testing/benchmark-vllm-ascend/SKILL.md)：推理性能测试，包含 AISBench、vLLM bench、前缀数据工具、并发扫描、TPOT 配平与指标核对。
 - [`profile-vllm-ascend`](skills/testing/profile-vllm-ascend/SKILL.md)：真实负载中间窗口采集、完整rank覆盖、HTTP控制与导出/资源释放核验。
