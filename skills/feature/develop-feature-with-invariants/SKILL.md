@@ -82,6 +82,8 @@ When deleting, delaying or combining a condition, compare the old and new reacha
 
 Maintain the project development log as part of the feature, rather than reconstructing it from chat afterward. Keep the current decision easy to find and clearly mark superseded approaches.
 
+Use a Markdown (`.md`) file as the authoritative development log. Record decisions, evidence links, reversions and pending work in that file; JSON inventories and HTML previews may supplement it but must not replace it. If an existing log uses another format, preserve its history and evidence references when migrating to Markdown, and identify the new authoritative file.
+
 Keep a dated current-state summary at the front, with the verified revision, completed evidence and still-open risks. Refresh it when later validation resolves a concern or changes its scope; appending a result at the end does not correct a stale summary. Retain historical failures with their original revision and configuration, and distinguish an open cause from a defect reproduced on the final code.
 
 For each material change, retain:
